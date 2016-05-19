@@ -1,8 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+// To use react-meteor-data, we need to wrap our component in a container 
+// using the createContainer Higher Order Component
+import { createContainer } from 'meteor/react-meteor-data';
  
+// Get tasks from the collection tasks
+import { Tasks } from '../api/tasks.js';
+
 import Task from './Task.jsx';
  
-// App component - represents the whole app
+{/*
 export default class App extends Component {
   getTasks() {
     return [
@@ -11,9 +17,16 @@ export default class App extends Component {
       { _id: 3, text: 'This is task 3' },
     ];
   }
- 
+*/}
+
+hedf;
+
+// App component - represents the whole app
+// The wrapped App component fetches tasks from the Tasks collection and supplies 
+// them to the underlying App component it wraps as the tasks prop
+class App extends Component {
   renderTasks() {
-    return this.getTasks().map((task) => (
+    return this.props.tasks.map((task) => (
       <Task key={task._id} task={task} />
     ));
   }
@@ -32,3 +45,13 @@ export default class App extends Component {
     );
   }
 }
+
+App.propTypes = {
+    tasks: PropTypes.array.isRequired,
+};
+
+export default createContainer(() => {
+    return {
+          tasks: Tasks.find({}).fetch(),
+         };
+}, App);
