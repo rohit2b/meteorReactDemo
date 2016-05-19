@@ -19,8 +19,6 @@ export default class App extends Component {
   }
 */}
 
-hedf;
-
 // App component - represents the whole app
 // The wrapped App component fetches tasks from the Tasks collection and supplies 
 // them to the underlying App component it wraps as the tasks prop
